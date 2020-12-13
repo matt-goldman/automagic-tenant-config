@@ -93,7 +93,7 @@ namespace SSW.Med_Man.MVC
             });
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSwaggerDocument();
+            services.AddOpenApiDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,7 +3,7 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:49714",
+      "applicationUrl": "http://localdev:49714",
       "sslPort": 44348
     }
   },
@@ -18,7 +18,7 @@
     "SSW.Med_Man.MVC": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:44348;http://localhost:5000",
+      "applicationUrl": "https://localdev:44348;http://localdev:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
