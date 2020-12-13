@@ -7,6 +7,11 @@
     -->
     <Application.Resources>
         <ResourceDictionary>
+            <OnPlatform x:TypeArguments="x:String" x:Key="MaterialIcons">
+                <On Platform="iOS" Value="MaterialDesignIcons"/>
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Regular"/>
+                <On Platform="UWP" Value="/Assets/Fonts/materialdesignicons-webfont.ttf#"/>
+            </OnPlatform>
             <Color x:Key="Primary">#fe5155</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>

@@ -63,6 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\MaterialIcons" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -94,6 +95,47 @@
       <Name>Med-Man-Mobile</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\Admins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\Meds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\Scripts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\Patients.png" />
+  </ItemGroup>
+  <ItemGroup>
+      <AndroidResource Include="Resources\drawable-xxxhdpi\Logout.png"/>
+      <AndroidResource Include="Resources\drawable-xxhdpi\Logout.png"/>
+      <AndroidResource Include="Resources\drawable-xhdpi\Logout.png"/>
+      <AndroidResource Include="Resources\drawable-hdpi\Logout.png"/>
+      <AndroidResource Include="Resources\drawable-mdpi\Logout.png"/>
+      <AndroidResource Include="Resources\drawable-ldpi\Logout.png"/>
+  </ItemGroup>
+
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

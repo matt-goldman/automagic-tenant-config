@@ -34,5 +34,10 @@
     <string>Med_Man_Mobile</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+
+  <key>UIAppFonts</key>
+  <array>
+    <string>MaterialIcons</string>
+  </array>
 </dict>
 </plist>
