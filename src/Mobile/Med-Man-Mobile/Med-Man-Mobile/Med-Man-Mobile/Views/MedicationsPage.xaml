@@ -1,0 +1,5 @@
+<ContentPage xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns="http://xamarin.com/schemas/2014/forms" x:Class="MedManMobile.Views.MedicationsPage" xmlns:viewModels="clr-namespace:MedManMobile.ViewModels">
+    <ContentPage.BindingContext>
+        <viewModels:MedicationsViewModel x:Name="ViewModel"/>
+    </ContentPage.BindingContext>
+</ContentPage>

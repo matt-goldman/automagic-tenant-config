@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:Med_Man_Mobile.Views"
+       xmlns:local="clr-namespace:MedManMobile.Views"
        xmlns:converters="clr-namespace:MedManMobile.Converters"
-       Title="Med_Man_Mobile"
+       Title="MedMan Mobile"
        x:Class="Med_Man_Mobile.AppShell">
 
     <!--
@@ -83,16 +83,16 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem Title="Patients" Icon="Patients">
-        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent Route="PatientsPage" ContentTemplate="{DataTemplate local:PatientsPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Medications" Icon="Meds">
-        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Route="MedicationsPage" ContentTemplate="{DataTemplate local:MedicationsPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Prescriptions" Icon="Scripts">
-        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent Route="PrescriptionsPage" ContentTemplate="{DataTemplate local:PrescriptionsPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Administrations" Icon="Admins">
-        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Route="AdministrationsPage" ContentTemplate="{DataTemplate local:AdministrationsPage}" />
     </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
