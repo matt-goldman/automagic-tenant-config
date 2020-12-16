@@ -1,18 +1,17 @@
 ﻿using Med_Man_Mobile.Services;
-using Med_Man_Mobile.Views;
-using System;
+using MedManMobile.Helpers;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Med_Man_Mobile
 {
     public partial class App : Application
     {
+        public static Constants Constants { get; private set; }
 
         public App()
         {
             InitializeComponent();
-
+            Constants = new Constants();
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }

@@ -11,12 +11,12 @@
 #pragma warning disable 1591 // Disable "CS1591 Missing XML comment for publicly visible type or member ..."
 #pragma warning disable 8073 // Disable "CS8073 The result of the expression is always 'false' since a value of type 'T' is never equal to 'null' of type 'T?'"
 
-namespace SSW.Rewards
+namespace SSW.MedMan
 {
     using System = global::System;
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class AdministrationsClient 
+    public partial class AdministrationsClient : BaseClient
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
@@ -66,7 +66,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -139,7 +139,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(administration, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -216,7 +216,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -293,7 +293,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(administration, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -368,7 +368,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -525,7 +525,7 @@ namespace SSW.Rewards
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class AuthClient 
+    public partial class AuthClient : BaseClient
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
@@ -578,7 +578,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(loginUser, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -738,7 +738,7 @@ namespace SSW.Rewards
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class MedicationsClient 
+    public partial class MedicationsClient : BaseClient
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
@@ -788,7 +788,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -861,7 +861,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(medication, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -938,7 +938,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -1015,7 +1015,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(medication, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -1090,7 +1090,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -1247,7 +1247,7 @@ namespace SSW.Rewards
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class PatientsClient 
+    public partial class PatientsClient : BaseClient
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
@@ -1297,7 +1297,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -1370,7 +1370,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(patient, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -1447,7 +1447,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -1524,7 +1524,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(patient, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -1599,7 +1599,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -1756,7 +1756,7 @@ namespace SSW.Rewards
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class PrescriptionsClient 
+    public partial class PrescriptionsClient : BaseClient
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
@@ -1806,7 +1806,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -1879,7 +1879,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(prescription, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -1956,7 +1956,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -2033,7 +2033,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(prescription, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -2108,7 +2108,7 @@ namespace SSW.Rewards
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
