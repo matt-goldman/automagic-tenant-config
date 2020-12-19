@@ -12,6 +12,6 @@ namespace MedManMobile.Services
 
         Task<bool> UpdatePatient(PatientDTO patient);
 
-        Task<bool> AddPatient(PatientDTO patient);
+        Task<int> AddPatient(PatientDTO patient);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Med_Man_Mobile;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
