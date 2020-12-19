@@ -1,5 +1,4 @@
-﻿using Med_Man_Mobile.Services;
-using MedManMobile.Helpers;
+﻿using MedManMobile.Helpers;
 using Microsoft.Identity.Client;
 using Xamarin.Forms;
 
@@ -16,7 +15,7 @@ namespace Med_Man_Mobile
         {
             InitializeComponent();
             Constants = new Constants();
-            DependencyService.Register<MockDataStore>();
+            //DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 
