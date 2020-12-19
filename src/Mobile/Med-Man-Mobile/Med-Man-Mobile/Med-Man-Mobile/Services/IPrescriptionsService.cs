@@ -1,13 +1,15 @@
-﻿using System;
+﻿using SSW.MedMan;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MedManMobile.Services
 {
     public interface IPrescriptionsService
     {
-        
+        Task<int> AddPrescription(PrescriptionDTO prescription);
+        Task<bool> UpdatePrescription(PrescriptionDTO prescription);
+        Task<List<PrescriptionDTO>> GetPrescriptions();
+        Task<PrescriptionDTO> GetPrescription(int id);
+        Task<bool> DeletePrescription(int id);
     }
 }
