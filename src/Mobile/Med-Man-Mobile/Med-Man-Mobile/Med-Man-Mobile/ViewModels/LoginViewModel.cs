@@ -1,7 +1,4 @@
 ﻿using MedManMobile.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace Med_Man_Mobile.ViewModels

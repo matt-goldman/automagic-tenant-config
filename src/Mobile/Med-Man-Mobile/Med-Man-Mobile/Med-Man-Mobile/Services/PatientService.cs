@@ -48,7 +48,7 @@ namespace MedManMobile.Services
         {
             try
             {
-                var result = await _patientsClient.PutPatientAsync(patient.Id, patient);
+                await _patientsClient.PutPatientAsync(patient.Id, patient);
                 return true;
             }
             catch(Exception ex)

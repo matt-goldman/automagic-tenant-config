@@ -65,7 +65,7 @@ namespace MedManMobile.Services
         {
             try
             {
-                var result = await _medicationsClient.PutMedicationAsync(medication.Id, medication);
+                await _medicationsClient.PutMedicationAsync(medication.Id, medication);
                 return true;
             }
             catch (Exception ex)

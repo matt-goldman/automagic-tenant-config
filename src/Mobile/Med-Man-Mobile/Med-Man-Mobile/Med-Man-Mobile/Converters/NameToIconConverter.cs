@@ -6,8 +6,6 @@ namespace MedManMobile.Converters
 {
     public class NameToIconConverter : IValueConverter
     {
-        
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((targetType == typeof(string)))
@@ -48,16 +46,5 @@ namespace MedManMobile.Converters
                     return IconFont.Barcode;
             }
         }
-    }
-
-    static class IconFont
-    {
-        public const string Prescription = "\U000f0706";
-        public const string MedicalBag = "\U000f06ef";
-        public const string Needle = "\U000f0391";
-        public const string Pill = "\U000f0402";
-        public const string AccountMultiple = "\U000f000e";
-        public const string Logout = "\U000f0343";
-        public const string Barcode = "\U000f0071";
     }
 }

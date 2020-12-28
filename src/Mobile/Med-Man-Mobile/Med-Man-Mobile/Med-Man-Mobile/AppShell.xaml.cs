@@ -18,5 +18,7 @@ namespace Med_Man_Mobile
         {
             await Shell.Current.GoToAsync("//LoginPage");
         }
+
+        public static string PatientsIcon = "\uf000";
     }
 }

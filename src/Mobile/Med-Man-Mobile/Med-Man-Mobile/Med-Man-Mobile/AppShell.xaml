@@ -74,6 +74,7 @@
             </Style>
 
             <converters:NameToIconConverter x:Key="NameToIcon"/>
+            <converters:ToolbarIconValueConverter x:Key="ToolbarIcon"/>
         </ResourceDictionary>
     </Shell.Resources>
 
@@ -82,8 +83,26 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-    <FlyoutItem Title="Patients" Icon="Patients">
-        <ShellContent Route="PatientsPage" ContentTemplate="{DataTemplate local:PatientsPage}" />
+    <FlyoutItem Title="Patients"
+                Icon="Patients">
+        <Tab Title="View Patients">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource MaterialIcons}"
+                                 Glyph="{Binding PatientsIcon}"
+                                 Size="44"/>
+            </Tab.Icon>
+            <ShellContent Title="View Patients"
+                          Route="PatientsPage"
+                          ContentTemplate="{DataTemplate local:PatientsPage}"/>
+        </Tab>
+        <Tab Title="Add PAtient">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource MaterialIcons}" Glyph="&#xF014f;"/>
+            </Tab.Icon>
+            <ShellContent Title="Add Patient"
+                          Route="AddPatientPage"
+                          ContentTemplate="{DataTemplate local:AddPatientPage}"/>
+        </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Medications" Icon="Meds">
         <ShellContent Route="MedicationsPage" ContentTemplate="{DataTemplate local:MedicationsPage}" />
@@ -96,7 +115,10 @@
     </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
-    <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+    <MenuItem Text="Logout"
+              StyleClass="MenuItemLayoutStyle"
+              Clicked="OnMenuItemClicked"
+              IconImageSource="Logout">
     </MenuItem>
 
     <!--

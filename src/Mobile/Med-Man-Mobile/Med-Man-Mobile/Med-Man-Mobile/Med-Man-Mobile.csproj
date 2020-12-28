@@ -13,6 +13,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\AddAdministrationPage.xaml.cs">
+      <DependentUpon>Views\AddAdministrationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AddMedicationPage.xaml.cs">
+      <DependentUpon>Views\AddMedicationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AddPatientPage.xaml.cs">
+      <DependentUpon>Views\AddPatientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AddPrescriptionPage.xaml.cs">
+      <DependentUpon>Views\AddPrescriptionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\AdministrationsPage.xaml.cs">
       <DependentUpon>Views\AdministrationsPage.xaml</DependentUpon>
     </Compile>
@@ -28,6 +40,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\AddAdministrationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AddMedicationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AddPatientPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AddPrescriptionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\AdministrationsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
