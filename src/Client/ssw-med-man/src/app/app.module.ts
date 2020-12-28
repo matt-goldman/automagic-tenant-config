@@ -14,7 +14,7 @@ import { MatButtonModule,
          MatSidenavModule,
          MatFormFieldModule,
          MatInputModule,
-         MatListModule, 
+         MatListModule,
          MatSnackBarModule,
          MatTableModule,
          MatDatepickerModule,
@@ -30,7 +30,7 @@ import { HomeComponent } from './home/home.component';
 import { UserService } from './services/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PatientsClient, MedicationsClient, PrescriptionsClient, AdministrationsClient } from '../helpers/api-client';
+import { PatientsClient, MedicationsClient, PrescriptionsClient, AdministrationsClient, API_BASE_URL } from '../helpers/api-client';
 import { TokenInterceptor } from './httpinterceptor';
 import { AddPatientsComponent } from './add-patients/add-patients.component';
 import { MedListComponent } from './med-list/med-list.component';
@@ -40,6 +40,7 @@ import { AddAdministrationComponent } from './add-administration/add-administrat
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { UnauthComponent } from './unauth/unauth.component';
 import { MsalModule } from '@azure/msal-angular'
+import * as env from '../environments/environment';
 
 export function JwtTokenGetter() {
   return localStorage.getItem("auth_token");
@@ -99,13 +100,13 @@ export function JwtTokenGetter() {
       }
     }),
     MsalModule.forRoot({
-      clientID: "[replace with B2C client ID",
-      authority: "https://[replace with your B2C tenant]/tfp/goldiessw.onmicrosoft.com/B2C_1A_signup_signin",
-      redirectUri: "https://localhost:4200",
+      clientID: env.B2CClientId,
+      authority: `https://${env.B2CTenant}.b2clogin.com/${env.B2CTenant}.onmicrosoft.com/B2C_1A_Signup_Signin`,
+      redirectUri: "http://localhost:4200",
       validateAuthority : false,
       cacheLocation : "localStorage",
       storeAuthStateInCookie: false, // dynamically set to true when IE11
-      postLogoutRedirectUri: "https://localhost:4200",
+      postLogoutRedirectUri: "http://localhost:4200",
       navigateToLoginRequestUrl : true,
       popUp: true,
       consentScopes: ["user_impersonation"],
@@ -118,6 +119,10 @@ export function JwtTokenGetter() {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: API_BASE_URL,
+      useValue: env.ApiBaseUri
     },
     UserService,
     PatientsClient,

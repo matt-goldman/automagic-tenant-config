@@ -351,3 +351,4 @@ MigrationBackup/
 
 # mfractor (Xamarin tooling)
 .mfractor/
+src/Client/ssw-med-man/src/environments/environment.dev.ts

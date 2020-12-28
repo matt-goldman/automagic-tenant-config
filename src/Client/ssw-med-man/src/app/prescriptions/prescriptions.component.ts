@@ -28,5 +28,5 @@ export class PrescriptionsComponent implements OnInit {
         this.prescriptions = result;
         this.arePrescriptions = this.prescriptions.length > 0;
       });
-  }  
+  }
 }

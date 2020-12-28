@@ -6,6 +6,11 @@ export const environment = {
   production: false
 };
 
+export const B2CClientId: string = "d31fe268-a410-4a9f-9ce0-a91078f75396";
+export const B2CTenant: string = "goldiessw";
+export const ApiBaseUri: string = "https://localdev:44348";
+
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

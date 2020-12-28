@@ -139,6 +139,7 @@ namespace SSW.Med_Man.MVC.api.Controllers
         // POST: api/Patients
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost]
         public async Task<ActionResult<PatientDTO>> PostPatient(PatientDTO patient)
         {

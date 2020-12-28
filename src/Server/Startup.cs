@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
 using Microsoft.AspNetCore.Authentication;
 
+[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace SSW.Med_Man.MVC
 {
     public class Startup

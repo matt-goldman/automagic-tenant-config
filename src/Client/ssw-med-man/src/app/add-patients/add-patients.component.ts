@@ -26,10 +26,13 @@ export class AddPatientsComponent implements OnInit {
           this.router.navigate(['/patients']);
         } else {
           this._snakBar.open("Adding patient failed", "OK" , {duration: 3000});
+          console.log("Got no result");
         }
       },
       error => {
         this._snakBar.open("Adding patient failed", "OK" , {duration: 3000});
+        console.log("Got an error adding patient");
+
         console.log(error);
       });
   }
