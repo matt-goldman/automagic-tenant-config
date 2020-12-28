@@ -11,6 +11,7 @@ namespace MedManMobile.ViewModels
         private readonly IPatientService _patientsService;
         public List<PatientDTO> Patients { get; set; }
 
+
         public PatientsViewModel(IPatientService patientsService)
         {
             _patientsService = patientsService;
