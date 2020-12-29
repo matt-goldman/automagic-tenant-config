@@ -22,6 +22,8 @@ namespace Med_Man_Mobile.ViewModels
             set { SetProperty(ref title, value); }
         }
 
+        public INavigation Navigation { get; set; }
+
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName] string propertyName = "",
             Action onChanged = null)

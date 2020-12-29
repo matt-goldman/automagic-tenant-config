@@ -23,6 +23,7 @@
     "@angular/router": "~8.0.0",
     "@auth0/angular-jwt": "^3.0.1",
     "@azure/msal-angular": "^0.1.4",
+    "angularx-qrcode": "^2.1.4",
     "bootstrap": "^4.3.1",
     "ng-lottie": "^0.3.2",
     "rxjs": "~6.4.0",

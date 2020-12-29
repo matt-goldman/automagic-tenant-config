@@ -1,0 +1,50 @@
+<ContentPage xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             x:Class="MedManMobile.Views.ConfigPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             Visual="Material">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InverseBool"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <Label HorizontalOptions="CenterAndExpand"
+               HorizontalTextAlignment="Center"
+               Text="Config"
+               FontSize="Header"/>
+
+        <Label HorizontalOptions="CenterAndExpand"
+               HorizontalTextAlignment="Center"
+               Text="Get these settings from your system administrator"/>
+
+        <Entry Text="{Binding ApiBaseUri}"
+               Placeholder="API URI"/>
+
+        <Entry Text="{Binding IDP}"
+               Placeholder="Identity Provider"/>
+
+        <Entry Text="{Binding TenantId}"
+               Placeholder="Tenant ID"/>
+
+        <Entry Text="{Binding TenantName}"
+               Placeholder="Tenant Name"/>
+        
+        <Entry Text="{Binding AppId}"
+               Placeholder="App / Client ID"/>
+
+        <Entry Text="{Binding SigninPolicy}"
+               Placeholder="Signin Policy ID"/>
+
+        <Button Text="Save"
+                BackgroundColor="{StaticResource Primary}"
+                Command="{Binding SaveConfigCommand}"/>
+
+        <Label Text="Settings not valid"
+               TextColor="DarkRed"
+               HorizontalOptions="CenterAndExpand"
+               HorizontalTextAlignment="Center"
+               IsVisible="{Binding IsValid, Converter={StaticResource InverseBool}}"/>
+
+    </StackLayout>
+</ContentPage>

@@ -28,6 +28,9 @@
     <Compile Update="Views\AdministrationsPage.xaml.cs">
       <DependentUpon>Views\AdministrationsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ConfigPage.xaml.cs">
+      <DependentUpon>Views\ConfigPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MedicationsPage.xaml.cs">
       <DependentUpon>Views\MedicationsPage.xaml</DependentUpon>
     </Compile>
@@ -53,6 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AdministrationsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ConfigPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MedicationsPage.xaml">

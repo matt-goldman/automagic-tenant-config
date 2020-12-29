@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>App Configuration</h1>
+<div mat-dialog-content>
+  <p>Scan this QR code in your mobile app to use SSW.MedMan</p>
+  <qrcode [qrdata]="data" [width]="512" [errorCorrectionLevel]="'M'"></qrcode>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCloseClick()">Close</button>
+</div>

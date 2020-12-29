@@ -15,7 +15,7 @@ namespace Med_Man_Mobile
         {
             InitializeComponent();
             Constants = new Constants();
-            //DependencyService.Register<MockDataStore>();
+
             MainPage = new AppShell();
         }
 
@@ -36,7 +36,8 @@ namespace Med_Man_Mobile
             AuthenticationClient = PublicClientApplicationBuilder.Create(Constants.AppId)
                                     .WithIosKeychainSecurityGroup(Constants.IosKeychainSecurityGroups)
                                     .WithTenantId(Constants.TenantId)
-                                    .WithRedirectUri("msauth.com.verisaas.verinote://auth")
+                                    .WithB2CAuthority(Constants.AuthoritySignin)
+                                    .WithRedirectUri("msauth.com.ssw.medman://auth")
                                     .Build();
         }
     }

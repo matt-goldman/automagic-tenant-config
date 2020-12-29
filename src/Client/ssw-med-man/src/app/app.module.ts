@@ -41,6 +41,8 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { UnauthComponent } from './unauth/unauth.component';
 import { MsalModule } from '@azure/msal-angular'
 import * as env from '../environments/environment';
+import { QrDialogComponent } from './qr-dialog/qr-dialog.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 export function JwtTokenGetter() {
   return localStorage.getItem("auth_token");
@@ -60,10 +62,12 @@ export function JwtTokenGetter() {
     AddMedsDialogComponent,
     AddPrescriptionComponent,
     AddAdministrationComponent,
-    UnauthComponent
+    UnauthComponent,
+    QrDialogComponent
   ],
   entryComponents: [
-    AddMedsDialogComponent
+    AddMedsDialogComponent,
+    QrDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +116,8 @@ export function JwtTokenGetter() {
       consentScopes: ["user_impersonation"],
       unprotectedResources: ["https://angularjs.org/"],
       correlationId: '1234'
-    })
+    }),
+    QRCodeModule
   ],
   providers: [
     {

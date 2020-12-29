@@ -4,27 +4,33 @@
     <span *ngIf="loggedIn">
       <button mat-button [matMenuTriggerFor]="patientMenu">Patients</button>
       <mat-menu #patientMenu="matMenu">
-        <button mat-menu-item routerLink="/patients">View Patients</button>  
-        <button mat-menu-item routerLink="/addPatient">Add Patient</button>  
+        <button mat-menu-item routerLink="/patients">View Patients</button>
+        <button mat-menu-item routerLink="/addPatient">Add Patient</button>
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="medMenu">Medications</button>
       <mat-menu #medMenu="matMenu">
-        <button mat-menu-item routerLink="/medications">View Medications</button>  
-        <button mat-menu-item routerLink="/medications">Add Medications</button>  
+        <button mat-menu-item routerLink="/medications">View Medications</button>
+        <button mat-menu-item routerLink="/medications">Add Medications</button>
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="presMenu">Prescriptions</button>
       <mat-menu #presMenu="matMenu">
-        <button mat-menu-item routerLink="/prescriptions">View Prescriptions</button>  
-        <button mat-menu-item routerLink="/addPrescription">Prescribe Medicaion</button>  
+        <button mat-menu-item routerLink="/prescriptions">View Prescriptions</button>
+        <button mat-menu-item routerLink="/addPrescription">Prescribe Medicaion</button>
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="adminMenu">Administriations</button>
       <mat-menu #adminMenu="matMenu">
-        <button mat-menu-item routerLink="/administrations">View Administrations</button>  
-        <button mat-menu-item routerLink="/addAdministration">Administer Medications</button>  
+        <button mat-menu-item routerLink="/administrations">View Administrations</button>
+        <button mat-menu-item routerLink="/addAdministration">Administer Medications</button>
       </mat-menu>
     </span>
     <div class="flex-spacer"></div>
-    <button *ngIf="loggedIn" mat-button (click)="logout()">Logout</button>
+    <span *ngIf="loggedIn">
+      <button mat-button [matMenuTriggerFor]="settingsMenu"><mat-icon>settings</mat-icon></button>
+      <mat-menu #settingsMenu="matMenu">
+        <button mat-menu-item (click)="showQRCode()"><mat-icon>qr_code</mat-icon>Show Config</button>
+      </mat-menu>
+      <button mat-button (click)="logout()">Logout</button>
+    </span>
     <button *ngIf="!loggedIn" mat-button (click)="userService.loginB2C()">Login</button>
   </mat-toolbar>
 </nav>
