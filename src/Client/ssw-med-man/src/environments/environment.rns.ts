@@ -9,6 +9,8 @@ export const environment = {
 export const B2CClientId: string = "aaa6c753-a354-4c71-a98f-bfa41cbcbe0a";
 export const B2CTenant: string = "rnsmedman";
 export const ApiBaseUri: string = "https://rnsmedman.azurewebsites.net";
+export const RedirectUri: string = "https://rnsmedman.goforgoldman.com";
+export const SigninPolicy: string = "B2C_1_SignupAndSignin";
 
 
 /*

@@ -105,12 +105,12 @@ export function JwtTokenGetter() {
     }),
     MsalModule.forRoot({
       clientID: env.B2CClientId,
-      authority: `https://${env.B2CTenant}.b2clogin.com/${env.B2CTenant}.onmicrosoft.com/B2C_1A_Signup_Signin`,
-      redirectUri: "http://localhost:4200",
+      authority: `https://${env.B2CTenant}.b2clogin.com/${env.B2CTenant}.onmicrosoft.com/${env.SigninPolicy}`,
+      redirectUri: env.RedirectUri,
       validateAuthority : false,
       cacheLocation : "localStorage",
       storeAuthStateInCookie: false, // dynamically set to true when IE11
-      postLogoutRedirectUri: "http://localhost:4200",
+      postLogoutRedirectUri: env.RedirectUri,
       navigateToLoginRequestUrl : true,
       popUp: true,
       consentScopes: ["user_impersonation"],

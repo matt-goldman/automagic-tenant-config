@@ -9,7 +9,8 @@ export const environment = {
 export const B2CClientId: string = "d31fe268-a410-4a9f-9ce0-a91078f75396";
 export const B2CTenant: string = "goldiessw";
 export const ApiBaseUri: string = "https://localdev:44348";
-
+export const RedirectUri: string = "https://localhost:4200";
+export const SigninPolicy: string = "B2C_1_SignupAndSignin";
 
 /*
  * For easier debugging in development mode, you can import the following file
