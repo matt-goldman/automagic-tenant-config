@@ -25,6 +25,7 @@ namespace Med_Man_Mobile.Droid
             Bootstrapper.Init();
 
             LoadApplication(new App());
+            App.UIParent = this;
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

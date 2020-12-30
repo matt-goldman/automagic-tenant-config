@@ -1,8 +1,7 @@
-﻿using Med_Man_Mobile.ViewModels;
-using MedManMobile.Views;
+﻿using MedManMobile.Views;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Med_Man_Mobile
@@ -19,7 +18,14 @@ namespace Med_Man_Mobile
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            bool logout = await DisplayAlert("Logout", "Are you sure you want to log out?", "Yes", "No");
+            if(logout)
+            {
+                SecureStorage.RemoveAll();
+                await App.Constants.InitialiseSecrets();
+                await Shell.Current.GoToAsync("//LoginPage");
+                await Navigation.PushModalAsync(new ConfigPage());
+            }
         }
 
         private async Task Init()
@@ -27,6 +33,7 @@ namespace Med_Man_Mobile
             await App.Constants.InitialiseSecrets();
             if(!App.Constants.SecretsInitialised)
             {
+                await Shell.Current.GoToAsync("//LoginPage");
                 await Navigation.PushModalAsync(new ConfigPage());
             }
         }

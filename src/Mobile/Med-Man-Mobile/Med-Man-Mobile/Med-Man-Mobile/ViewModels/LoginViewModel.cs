@@ -15,6 +15,15 @@ namespace Med_Man_Mobile.ViewModels
         private async void OnLoginClicked(object obj)
         {
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
+
+            var result = await App.AuthenticationClient
+                .AcquireTokenInteractive(App.Constants.Scopes)
+                .WithParentActivityOrWindow(App.UIParent)
+                .WithUseEmbeddedWebView(true)
+                .ExecuteAsync();
+
+            App.Constants.BearerToken = result.AccessToken;
+
             await Shell.Current.GoToAsync($"//{nameof(PatientsPage)}");
         }
     }

@@ -11,12 +11,7 @@
     <StackLayout Margin="30"
                  Padding="10"
                  Spacing="10">
-        <StackLayout Orientation="Horizontal"
-                     HorizontalOptions="CenterAndExpand">
-            <Image Source="icon"/>
-            <Label Text="SSW.MedMan"
-                   FontSize="32"/>
-        </StackLayout>
+        <Image Source="medmanlogo"/>
         <Label HorizontalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"
                Text="Config"
