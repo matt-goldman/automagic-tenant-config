@@ -18,7 +18,7 @@ namespace MedManMobile.ViewModels
 
         public ICommand SaveConfigCommand => new Command(async () => await SaveConfig());
 
-        public bool IsValid { get; set; }
+        public bool IsValid { get; set; } = true;
 
         private async Task SaveConfig()
         {

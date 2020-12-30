@@ -8,11 +8,19 @@
             <xct:InvertedBoolConverter x:Key="InverseBool"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout>
+    <StackLayout Margin="30"
+                 Padding="10"
+                 Spacing="10">
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="CenterAndExpand">
+            <Image Source="icon"/>
+            <Label Text="SSW.MedMan"
+                   FontSize="32"/>
+        </StackLayout>
         <Label HorizontalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"
                Text="Config"
-               FontSize="Header"/>
+               FontSize="Title"/>
 
         <Label HorizontalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"
@@ -36,15 +44,15 @@
         <Entry Text="{Binding SigninPolicy}"
                Placeholder="Signin Policy ID"/>
 
-        <Button Text="Save"
-                BackgroundColor="{StaticResource Primary}"
-                Command="{Binding SaveConfigCommand}"/>
-
         <Label Text="Settings not valid"
                TextColor="DarkRed"
                HorizontalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"
                IsVisible="{Binding IsValid, Converter={StaticResource InverseBool}}"/>
+
+        <Button Text="Save"
+                BackgroundColor="{StaticResource Primary}"
+                Command="{Binding SaveConfigCommand}"/>
 
     </StackLayout>
 </ContentPage>

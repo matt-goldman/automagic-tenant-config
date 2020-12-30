@@ -3,7 +3,4 @@
              x:Class="MedManMobile.Views.PatientsPage"
              xmlns:viewModels="clr-namespace:MedManMobile.ViewModels"
              Shell.TitleColor="White">
-    <ContentPage.BindingContext>
-        <viewModels:PatientsViewModel x:Name="ViewModel"/>
-    </ContentPage.BindingContext>
 </ContentPage>

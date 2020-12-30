@@ -24,6 +24,9 @@ namespace Med_Man_Mobile.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
+
+            Bootstrapper.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
