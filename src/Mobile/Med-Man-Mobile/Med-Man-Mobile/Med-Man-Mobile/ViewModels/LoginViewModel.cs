@@ -16,6 +16,11 @@ namespace Med_Man_Mobile.ViewModels
         {
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
 
+            if(App.AuthenticationClient == null)
+            {
+                App.InitialiseAuthClient();
+            }
+
             var result = await App.AuthenticationClient
                 .AcquireTokenInteractive(App.Constants.Scopes)
                 .WithParentActivityOrWindow(App.UIParent)

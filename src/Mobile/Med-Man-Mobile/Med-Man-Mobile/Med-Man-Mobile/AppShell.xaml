@@ -85,20 +85,14 @@
     -->
     <FlyoutItem Title="Patients"
                 Icon="Patients">
-        <Tab Title="View Patients">
-            <Tab.Icon>
-                <FontImageSource FontFamily="{StaticResource MaterialIcons}"
-                                 Glyph="{Binding PatientsIcon}"
-                                 Size="44"/>
-            </Tab.Icon>
+        <Tab Title="View Patients"
+             Icon="viewpatients">
             <ShellContent Title="View Patients"
                           Route="PatientsPage"
                           ContentTemplate="{DataTemplate local:PatientsPage}"/>
         </Tab>
-        <Tab Title="Add PAtient">
-            <Tab.Icon>
-                <FontImageSource FontFamily="{StaticResource MaterialIcons}" Glyph="&#xF014f;"/>
-            </Tab.Icon>
+        <Tab Title="Add Patient"
+             Icon="addpatient">
             <ShellContent Title="Add Patient"
                           Route="AddPatientPage"
                           ContentTemplate="{DataTemplate local:AddPatientPage}"/>

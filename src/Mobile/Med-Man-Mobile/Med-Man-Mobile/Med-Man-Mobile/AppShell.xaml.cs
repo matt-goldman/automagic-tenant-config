@@ -1,5 +1,6 @@
 ﻿using MedManMobile.Views;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -19,8 +20,10 @@ namespace Med_Man_Mobile
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
             bool logout = await DisplayAlert("Logout", "Are you sure you want to log out?", "Yes", "No");
+
             if(logout)
             {
+                Shell.Current.FlyoutIsPresented = false;
                 SecureStorage.RemoveAll();
                 await App.Constants.InitialiseSecrets();
                 await Shell.Current.GoToAsync("//LoginPage");
@@ -30,14 +33,13 @@ namespace Med_Man_Mobile
 
         private async Task Init()
         {
-            await App.Constants.InitialiseSecrets();
-            if(!App.Constants.SecretsInitialised)
+            bool initialised = await App.Constants.InitialiseSecrets();
+
+            if(!initialised)
             {
-                await Shell.Current.GoToAsync("//LoginPage");
                 await Navigation.PushModalAsync(new ConfigPage());
             }
         }
 
-        public static string PatientsIcon = "\uf000";
     }
 }

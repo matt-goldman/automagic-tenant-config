@@ -11,7 +11,7 @@ namespace MedManMobile.Helpers
 
         public string BearerToken { get; set; }
         public string ApiBaseUri { get; set; }
-        public string[] Scopes => new string[] { $"https://{TenantName}.onmicrosoft.com/api/user_impersonation" };
+        public string[] Scopes => new string[] { $"https://{TenantId}/api/user_impersonation" };
         public string AppId { get; set; }
         public string IosKeychainSecurityGroups => "com.ssw.medman";
         public string TenantId { get; set; }
@@ -33,7 +33,7 @@ namespace MedManMobile.Helpers
             _ = InitialiseSecrets();
         }
 
-        public async Task InitialiseSecrets()
+        public async Task<bool> InitialiseSecrets()
         {
             secretsInitialised = true;
 
@@ -75,6 +75,8 @@ namespace MedManMobile.Helpers
                     secretsInitialised = false;
                 }
             }
+
+            return secretsInitialised;
         }
     }
 }

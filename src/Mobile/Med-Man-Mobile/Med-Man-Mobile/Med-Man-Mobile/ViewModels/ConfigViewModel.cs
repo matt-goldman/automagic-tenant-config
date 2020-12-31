@@ -42,8 +42,8 @@ namespace MedManMobile.ViewModels
 
             await App.Constants.InitialiseSecrets();
             MessagingCenter.Send<object>(this, "ConstantsSaved");
-
-            await Navigation.PopModalAsync();
+            
+            await Shell.Current.GoToAsync("//LoginPage");
         }
 
         private bool ValidateConfig()

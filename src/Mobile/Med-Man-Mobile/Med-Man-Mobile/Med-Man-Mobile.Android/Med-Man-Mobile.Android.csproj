@@ -153,6 +153,22 @@
     <AndroidResource Include="Resources\drawable-mdpi\Logout.png" />
     <AndroidResource Include="Resources\drawable-ldpi\Logout.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\addpatient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\viewpatients.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
