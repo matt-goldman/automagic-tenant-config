@@ -3,4 +3,9 @@
              x:Class="MedManMobile.Views.PatientsPage"
              xmlns:viewModels="clr-namespace:MedManMobile.ViewModels"
              Shell.TitleColor="White">
+    <RefreshView>
+        <CollectionView ItemsSource="{Binding Patients}">
+            
+        </CollectionView>
+    </RefreshView>
 </ContentPage>
