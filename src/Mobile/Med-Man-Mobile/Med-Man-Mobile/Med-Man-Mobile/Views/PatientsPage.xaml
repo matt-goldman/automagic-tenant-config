@@ -3,9 +3,45 @@
              x:Class="MedManMobile.Views.PatientsPage"
              xmlns:viewModels="clr-namespace:MedManMobile.ViewModels"
              Shell.TitleColor="White">
-    <RefreshView>
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                 Command="{Binding RefreshCommand}">
         <CollectionView ItemsSource="{Binding Patients}">
-            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="{StaticResource Primary}"
+                           HasShadow="True"
+                           CornerRadius="15">
+                        <Grid WidthRequest="300"
+                              HeightRequest="150"
+                              Padding="10"
+                              Margin="10"
+                              RowDefinitions="1*, 1*"
+                              ColumnDefinitions="2*, 4*">
+                            <Label TextColor="White"
+                                   FontSize="Title"
+                                   Text="Name"
+                                   Grid.Row="0"
+                                   Grid.Column="0"/>
+                            <Label TextColor="White"
+                                   FontSize="Title"
+                                   Text="{Binding FullName}"
+                                   Grid.Row="0"
+                                   Grid.Column="1"/>
+
+                            <Label TextColor="White"
+                                   FontSize="Subtitle"
+                                   Text="DOB"
+                                   Grid.Row="1"
+                                   Grid.Column="0"/>
+                            <Label TextColor="White"
+                                   FontSize="Subtitle"
+                                   Text="{Binding Dob}"
+                                   Grid.Row="1"
+                                   Grid.Column="1"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
         </CollectionView>
     </RefreshView>
 </ContentPage>

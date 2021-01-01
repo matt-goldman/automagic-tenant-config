@@ -19,6 +19,15 @@ namespace MedManMobile.Services
         {
             httpClient = new HttpClient();
             apiUri = App.Constants.ApiBaseUri;
+            apiUri = apiUri.Replace("https://", "");
+            if (apiUri.EndsWith("/"))
+            {
+                int strLength = apiUri.Length;
+                apiUri = apiUri.Remove(strLength - 1, 1);
+            }
+
+            apiUri = $"https://{apiUri}/";
+
             MessagingCenter.Subscribe<object>(this, "ConstantsSaved", (obj) => apiUri = App.Constants.ApiBaseUri);
         }
         public static async Task<bool> HandleUnauthorizedAsync()
