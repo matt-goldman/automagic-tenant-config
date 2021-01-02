@@ -1,6 +1,5 @@
 ﻿using MedManMobile.Views;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -23,6 +22,7 @@ namespace Med_Man_Mobile
 
             if(logout)
             {
+                App.IsLoggedIn = false;
                 Shell.Current.FlyoutIsPresented = false;
                 SecureStorage.RemoveAll();
                 await App.Constants.InitialiseSecrets();

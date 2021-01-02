@@ -14,12 +14,23 @@ namespace MedManMobile.Services
     {
         public static HttpClient httpClient { get; set; }
         public static string apiUri;
+        private string baseUri;
 
         public BaseService()
         {
             httpClient = new HttpClient();
-            apiUri = App.Constants.ApiBaseUri;
-            apiUri = apiUri.Replace("https://", "");
+
+            ConstructApiUri();
+
+            MessagingCenter.Subscribe<object>(this, "ConstantsSaved", (obj) => ReinitClient());
+        }
+
+        private void ConstructApiUri()
+        {
+            baseUri = App.Constants.ApiBaseUri ?? "";
+
+            apiUri = baseUri.Replace("https://", "");
+
             if (apiUri.EndsWith("/"))
             {
                 int strLength = apiUri.Length;
@@ -27,9 +38,8 @@ namespace MedManMobile.Services
             }
 
             apiUri = $"https://{apiUri}/";
-
-            MessagingCenter.Subscribe<object>(this, "ConstantsSaved", (obj) => apiUri = App.Constants.ApiBaseUri);
         }
+
         public static async Task<bool> HandleUnauthorizedAsync()
         {
             try
@@ -66,6 +76,11 @@ namespace MedManMobile.Services
                 Debug.Write(ex.Message);
                 return false;
             }
+        }
+
+        protected virtual void ReinitClient()
+        {
+            ConstructApiUri();
         }
     }
 }

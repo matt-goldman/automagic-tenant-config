@@ -11,7 +11,16 @@ namespace MedManMobile.Views
 
         public PatientsPage()
         {
-            ViewModel = Resolver.Resolve<PatientsViewModel>();
+            try
+            {
+                ViewModel = Resolver.Resolve<PatientsViewModel>();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
 
             BindingContext = ViewModel;
 

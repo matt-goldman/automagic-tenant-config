@@ -9,7 +9,7 @@ namespace Med_Man_Mobile
     {
         public static Constants Constants { get; private set; }
         public static IPublicClientApplication AuthenticationClient { get; private set; }
-
+        public static bool IsLoggedIn { get; set; } = false;
         public static object UIParent { get; set; } = null;
 
         public App()

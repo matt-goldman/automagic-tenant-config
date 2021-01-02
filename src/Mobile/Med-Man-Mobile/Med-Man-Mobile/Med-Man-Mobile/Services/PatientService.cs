@@ -16,6 +16,12 @@ namespace MedManMobile.Services
             _patientsClient = new PatientsClient(apiUri, httpClient);
         }
 
+        protected override void ReinitClient()
+        {
+            base.ReinitClient();
+            _patientsClient = new PatientsClient(apiUri, httpClient);
+        }
+
         public async Task<int> AddPatient(PatientDTO patient)
         {
             try
