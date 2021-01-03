@@ -2,20 +2,32 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              x:Class="MedManMobile.Views.PatientsPage"
              xmlns:viewModels="clr-namespace:MedManMobile.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:medman="clr-namespace:SSW.MedMan"
              Shell.TitleColor="White">
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
                  Command="{Binding RefreshCommand}">
         <CollectionView ItemsSource="{Binding Patients}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="20"/>
+            </CollectionView.ItemsLayout>
+            <d:CollectionView.ItemsSource>
+                <x:Array Type="{x:Type medman:PatientDTO}">
+                    <medman:PatientDTO FullName="John Smith" Dob="MaxValue"/>
+                    <medman:PatientDTO FullName="Jane Smythe" Dob="MinValue"/>
+                </x:Array>
+            </d:CollectionView.ItemsSource>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="medman:PatientDTO">
                     <Frame BackgroundColor="{StaticResource Primary}"
                            HasShadow="True"
+                           BorderColor="Gray"
+                           Margin="10"
                            CornerRadius="15">
-                        <Grid WidthRequest="300"
-                              HeightRequest="150"
-                              Padding="10"
-                              Margin="10"
-                              RowDefinitions="1*, 1*"
+                        <Grid RowDefinitions="1*, 1*"
                               ColumnDefinitions="2*, 4*">
                             <Label TextColor="White"
                                    FontSize="Title"
@@ -35,7 +47,7 @@
                                    Grid.Column="0"/>
                             <Label TextColor="White"
                                    FontSize="Subtitle"
-                                   Text="{Binding Dob}"
+                                   Text="{Binding Dob, StringFormat='{0:dd MMM yyyy}'}"
                                    Grid.Row="1"
                                    Grid.Column="1"/>
                         </Grid>
