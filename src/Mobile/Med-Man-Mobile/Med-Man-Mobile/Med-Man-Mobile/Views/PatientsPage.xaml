@@ -9,7 +9,8 @@
              Shell.TitleColor="White">
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
                  Command="{Binding RefreshCommand}">
-        <CollectionView ItemsSource="{Binding Patients}">
+        <CollectionView ItemsSource="{Binding Patients}"
+                        Margin="10">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"
                                    ItemSpacing="20"/>

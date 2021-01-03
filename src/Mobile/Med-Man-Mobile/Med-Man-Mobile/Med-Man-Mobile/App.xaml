@@ -8,8 +8,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <OnPlatform x:TypeArguments="x:String" x:Key="MaterialIcons">
-                <On Platform="iOS" Value="MaterialDesignIcons"/>
-                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Regular"/>
+                <On Platform="iOS" Value="MaterialIcons.ttf"/>
+                <On Platform="Android" Value="MaterialIcons.ttf#Regular"/>
                 <On Platform="UWP" Value="/Assets/Fonts/materialdesignicons-webfont.ttf#"/>
             </OnPlatform>
             <Color x:Key="Primary">#fe5155</Color>
