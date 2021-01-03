@@ -9,6 +9,8 @@ namespace MedManMobile.Helpers
         private bool secretsInitialised { get; set; }
 
 
+        public string UserEmail { get; set; }
+
         public string BearerToken { get; set; }
         public string ApiBaseUri { get; set; }
         public string[] Scopes => new string[] { $"https://{TenantId}/api/user_impersonation" };

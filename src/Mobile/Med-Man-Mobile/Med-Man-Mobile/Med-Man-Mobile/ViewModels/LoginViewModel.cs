@@ -25,6 +25,7 @@ namespace Med_Man_Mobile.ViewModels
                 .AcquireTokenInteractive(App.Constants.Scopes)
                 .WithParentActivityOrWindow(App.UIParent)
                 .WithUseEmbeddedWebView(true)
+                .WithLoginHint(App.Constants.UserEmail)
                 .ExecuteAsync();
 
             App.Constants.BearerToken = result.AccessToken;

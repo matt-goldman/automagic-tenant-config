@@ -19,10 +19,10 @@
 
         <Label HorizontalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"
-               Text="Enter the URL of your MedMan instance"/>
+               Text="Enter your email address"/>
 
-        <Entry Text="{Binding MedmanUrl}"
-               Placeholder="MedMan URL"/>
+        <Entry Text="{Binding UserEmail}"
+               Placeholder="Email"/>
         
         <Label Text="{Binding ValidationMessage}"
                TextColor="DarkRed"

@@ -1,5 +1,8 @@
 using System;
+using System.Globalization;
 using System.Net.Http;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Med_Man_Mobile;
@@ -19,7 +22,7 @@ namespace MedManMobile.ViewModels
         public string AppId { get; set; }
         public string SigninPolicy { get; set; }
 
-        public string MedmanUrl { get; set; }
+        public string UserEmail { get; set; }
         public string ValidationMessage { get; set; }
 
         public ICommand SaveConfigCommand => new Command(async () => await SaveConfig());
@@ -30,18 +33,23 @@ namespace MedManMobile.ViewModels
 
         private async Task SaveConfig()
         {
-            //parse url
+            //parse email
 
-            MedmanUrl = MedmanUrl.Replace("https://", "");
-            if(MedmanUrl.EndsWith("/"))
+            if(!IsValidEmail(UserEmail))
             {
-                MedmanUrl = MedmanUrl.Remove(MedmanUrl.Length - 1, 1);
+                IsValid = false;
+                ValidationMessage = "Not a valid email address";
+                OnPropertyChanged("IsValid");
+                OnPropertyChanged("ValidationMessage");
+                return;
             }
+
+            var domain = GetDomainFromEmail(UserEmail);
 
             Uri configUri;
 
             //validate url
-            IsValid = Uri.TryCreate($"https://{MedmanUrl}/api/config", UriKind.Absolute, out configUri);
+            IsValid = Uri.TryCreate($"https://discovermedman.{domain}/api/config", UriKind.Absolute, out configUri);
 
             OnPropertyChanged("IsValid");
             OnPropertyChanged("ValidationMessage");
@@ -155,6 +163,56 @@ namespace MedManMobile.ViewModels
                     return true;
                 default:
                     return false;
+            }
+        }
+
+        private string GetDomainFromEmail(string email)
+        {
+            MailAddress address = new MailAddress(email);
+            return address.Host;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                // Normalize the domain
+                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+
+                // Examines the domain part of the email and normalizes it.
+                string DomainMapper(Match match)
+                {
+                    // Use IdnMapping class to convert Unicode domain names.
+                    var idn = new IdnMapping();
+
+                    // Pull out and process domain name (throws ArgumentException on invalid)
+                    string domainName = idn.GetAscii(match.Groups[2].Value);
+
+                    return match.Groups[1].Value + domainName;
+                }
+            }
+            catch (RegexMatchTimeoutException e)
+            {
+                return false;
+            }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
+
+            try
+            {
+                return Regex.IsMatch(email,
+                    @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
             }
         }
 
