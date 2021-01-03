@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Med_Man_Mobile;
 using Med_Man_Mobile.ViewModels;
+using Newtonsoft.Json;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -71,13 +72,37 @@ namespace MedManMobile.ViewModels
 
             //validate config
 
-            IsValid = ValidateConfig();
-            //ValidationMessage = "";
+            try
+            {
+                var dto = JsonConvert.DeserializeObject<ConfigDto>(configString);
 
-            OnPropertyChanged("IsValid");
+                AppId = dto.clientId;
+                TenantId = dto.domain;
+                TenantName = dto.tenantName;
+                SigninPolicy = dto.signUpSignInPolicyId;
+                ApiBaseUri = dto.apiBaseUri;
+                IDP = dto.idp;
+            }
+            catch (Exception)
+            {
+                IsValid = false;
+                ValidationMessage = "Not a valid MedMan URL";
+                OnPropertyChanged("IsValid");
+                OnPropertyChanged("ValidationMessage");
+                return;
+            }
+
+            IsValid = ValidateConfig();
 
             if (!IsValid)
+            {
+                ValidationMessage = "Config from MedMan is invalid";
+                OnPropertyChanged("IsValid");
+                OnPropertyChanged("ValidationMessage");
                 return;
+            }
+            
+            // if got this far, config was retrieved successfully and is good
 
             await SecureStorage.SetAsync(nameof(App.Constants.ApiBaseUri), ApiBaseUri);
             await SecureStorage.SetAsync(nameof(App.Constants.IDP), IDP);
@@ -131,6 +156,17 @@ namespace MedManMobile.ViewModels
                 default:
                     return false;
             }
+        }
+
+        private class ConfigDto
+        {
+            public string clientId { get; set; }
+            public string domain { get; set; }
+            public string tenantName { get; set; }
+            public string instance { get; set; }
+            public string signUpSignInPolicyId { get; set; }
+            public string apiBaseUri { get; set; }
+            public string idp { get; set; }
         }
     }
 }
