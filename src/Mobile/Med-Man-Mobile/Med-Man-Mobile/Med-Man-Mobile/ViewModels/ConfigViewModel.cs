@@ -1,7 +1,9 @@
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Med_Man_Mobile;
 using Med_Man_Mobile.ViewModels;
+using Newtonsoft.Json;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -15,6 +17,8 @@ namespace MedManMobile.ViewModels
         public string TenantId { get; set; }
         public string AppId { get; set; }
         public string SigninPolicy { get; set; }
+
+        public string QRIcon { get; set; } = "\U000f0433";
 
         public ICommand SaveConfigCommand => new Command(async () => await SaveConfig());
 
@@ -81,6 +85,33 @@ namespace MedManMobile.ViewModels
                 default:
                     return false;
             }
+        }
+
+        public async Task SaveScannedConfig(string config)
+        {
+            string jsonConfig = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(config));
+
+            var dto = JsonConvert.DeserializeObject<ConfigDto>(jsonConfig);
+
+            AppId = dto.clientId;
+            TenantId = dto.domain;
+            TenantName = dto.tenantName;
+            SigninPolicy = dto.signUpSignInPolicyId;
+            ApiBaseUri = dto.apiBaseUri;
+            IDP = dto.idp;
+
+            await SaveConfig();
+        }
+
+        private class ConfigDto
+        {
+            public string clientId { get; set; }
+            public string domain { get; set; }
+            public string tenantName { get; set; }
+            public string instance { get; set; }
+            public string signUpSignInPolicyId { get; set; }
+            public string apiBaseUri { get; set; }
+            public string idp { get; set; }
         }
     }
 }

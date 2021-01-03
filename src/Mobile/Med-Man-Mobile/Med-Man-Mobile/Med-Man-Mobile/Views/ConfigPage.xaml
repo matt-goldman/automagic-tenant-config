@@ -2,6 +2,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              x:Class="MedManMobile.Views.ConfigPage"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              Visual="Material">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -14,40 +15,16 @@
         <Image Source="medmanlogo"/>
         <Label HorizontalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"
-               Text="Config"
-               FontSize="Title"/>
+               Text="{Binding QRIcon}"
+               FontFamily="{StaticResource MaterialIcons}"
+               FontSize="65"
+               TextColor="Black"/>
 
         <Label HorizontalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"
-               Text="Get these settings from your system administrator"/>
+               Text="Scan the QR Code from MedMan in your browser"/>
 
-        <Entry Text="{Binding ApiBaseUri}"
-               Placeholder="API URI"/>
-
-        <Entry Text="{Binding IDP}"
-               Placeholder="Identity Provider"/>
-
-        <Entry Text="{Binding TenantId}"
-               Placeholder="Tenant ID"/>
-
-        <Entry Text="{Binding TenantName}"
-               Placeholder="Tenant Name"/>
-        
-        <Entry Text="{Binding AppId}"
-               Placeholder="App / Client ID"/>
-
-        <Entry Text="{Binding SigninPolicy}"
-               Placeholder="Signin Policy ID"/>
-
-        <Label Text="Settings not valid"
-               TextColor="DarkRed"
-               HorizontalOptions="CenterAndExpand"
-               HorizontalTextAlignment="Center"
-               IsVisible="{Binding IsValid, Converter={StaticResource InverseBool}}"/>
-
-        <Button Text="Save"
-                BackgroundColor="{StaticResource Primary}"
-                Command="{Binding SaveConfigCommand}"/>
+        <zxing:ZXingScannerView OnScanResult="ZXingScannerView_OnScanResult"/>
 
     </StackLayout>
 </ContentPage>

@@ -15,5 +15,10 @@ namespace MedManMobile.Views
             ViewModel.Navigation = Navigation;
             BindingContext = ViewModel;
         }
+
+        private async void ZXingScannerView_OnScanResult(ZXing.Result result)
+        {
+            await ViewModel.SaveScannedConfig(result.Text);
+        }
     }
 }
