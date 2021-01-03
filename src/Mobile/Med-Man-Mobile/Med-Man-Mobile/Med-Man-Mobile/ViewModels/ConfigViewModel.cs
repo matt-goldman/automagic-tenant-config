@@ -109,8 +109,10 @@ namespace MedManMobile.ViewModels
                 OnPropertyChanged("ValidationMessage");
                 return;
             }
-            
+
             // if got this far, config was retrieved successfully and is good
+
+            App.Constants.UserEmail = UserEmail;
 
             await SecureStorage.SetAsync(nameof(App.Constants.ApiBaseUri), ApiBaseUri);
             await SecureStorage.SetAsync(nameof(App.Constants.IDP), IDP);
