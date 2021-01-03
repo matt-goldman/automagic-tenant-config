@@ -24,7 +24,9 @@
                HorizontalTextAlignment="Center"
                Text="Scan the QR Code from MedMan in your browser"/>
 
-        <zxing:ZXingScannerView OnScanResult="ZXingScannerView_OnScanResult"/>
+        <zxing:ZXingScannerView OnScanResult="ZXingScannerView_OnScanResult"
+                                WidthRequest="400"
+                                HeightRequest="400"/>
 
     </StackLayout>
 </ContentPage>
