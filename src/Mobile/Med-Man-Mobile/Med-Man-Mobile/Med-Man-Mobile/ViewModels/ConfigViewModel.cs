@@ -1,3 +1,5 @@
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Med_Man_Mobile;
@@ -16,13 +18,61 @@ namespace MedManMobile.ViewModels
         public string AppId { get; set; }
         public string SigninPolicy { get; set; }
 
+        public string MedmanUrl { get; set; }
+        public string ValidationMessage { get; set; }
+
         public ICommand SaveConfigCommand => new Command(async () => await SaveConfig());
 
         public bool IsValid { get; set; } = true;
 
+        private string configString { get; set; }
+
         private async Task SaveConfig()
         {
+            //parse url
+
+            MedmanUrl = MedmanUrl.Replace("https://", "");
+            if(MedmanUrl.EndsWith("/"))
+            {
+                MedmanUrl = MedmanUrl.Remove(MedmanUrl.Length - 1, 1);
+            }
+
+            Uri configUri;
+
+            //validate url
+            IsValid = Uri.TryCreate($"https://{MedmanUrl}/api/config", UriKind.Absolute, out configUri);
+
+            OnPropertyChanged("IsValid");
+            OnPropertyChanged("ValidationMessage");
+
+            if (!IsValid)
+            {
+                ValidationMessage = "Not a valid URL. Please try again.";
+                return;
+            }
+
+            //get config from api
+
+            using (HttpClient client = new HttpClient())
+            {
+                var configResult = await client.GetAsync(configUri);
+
+                if(!configResult.IsSuccessStatusCode)
+                {
+                    IsValid = false;
+                    ValidationMessage = "Could not retrieve config";
+                    OnPropertyChanged("IsValid");
+                    OnPropertyChanged("ValidationMessage");
+                    return;
+                }
+
+                configString = await configResult.Content.ReadAsStringAsync();
+            }
+
+            //validate config
+
             IsValid = ValidateConfig();
+            //ValidationMessage = "";
 
             OnPropertyChanged("IsValid");
 

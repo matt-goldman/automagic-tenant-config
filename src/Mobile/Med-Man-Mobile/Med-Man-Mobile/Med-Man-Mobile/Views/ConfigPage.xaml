@@ -19,27 +19,12 @@
 
         <Label HorizontalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"
-               Text="Get these settings from your system administrator"/>
+               Text="Enter the URL of your MedMan instance"/>
 
-        <Entry Text="{Binding ApiBaseUri}"
-               Placeholder="API URI"/>
-
-        <Entry Text="{Binding IDP}"
-               Placeholder="Identity Provider"/>
-
-        <Entry Text="{Binding TenantId}"
-               Placeholder="Tenant ID"/>
-
-        <Entry Text="{Binding TenantName}"
-               Placeholder="Tenant Name"/>
+        <Entry Text="{Binding MedmanUrl}"
+               Placeholder="MedMan URL"/>
         
-        <Entry Text="{Binding AppId}"
-               Placeholder="App / Client ID"/>
-
-        <Entry Text="{Binding SigninPolicy}"
-               Placeholder="Signin Policy ID"/>
-
-        <Label Text="Settings not valid"
+        <Label Text="{Binding ValidationMessage}"
                TextColor="DarkRed"
                HorizontalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"
