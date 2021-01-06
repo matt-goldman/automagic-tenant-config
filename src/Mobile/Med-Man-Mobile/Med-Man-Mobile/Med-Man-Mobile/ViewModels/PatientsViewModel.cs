@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Med_Man_Mobile.ViewModels;
+using Med_Man_Mobile;
 using MedManMobile.Services;
 using SSW.MedMan;
 using Xamarin.Forms;
@@ -26,6 +27,9 @@ namespace MedManMobile.ViewModels
 
         private async Task Initialise()
         {
+            if (!App.IsLoggedIn)
+                return;
+
             IsBusy = true;
             
             Patients = await _patientsService.GetAllPAtients();
