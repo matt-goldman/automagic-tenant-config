@@ -29,12 +29,7 @@ namespace MedManMobile.ViewModels
 
         private async Task Initialise()
         {
-            if (!App.Constants.SecretsInitialised)
-            {
-                await Navigation.PushModalAsync(new ConfigPage());
-                return;
-            }
-            else if (!App.IsLoggedIn)
+            if (!App.IsLoggedIn)
             {
                 return;
             }
