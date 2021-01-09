@@ -24,6 +24,8 @@ namespace MedManMobile.Views
 
             BindingContext = ViewModel;
 
+            ViewModel.Navigation = Navigation;
+
             InitializeComponent();
         }
     }

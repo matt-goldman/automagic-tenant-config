@@ -6,12 +6,14 @@ using Med_Man_Mobile;
 using MedManMobile.Services;
 using SSW.MedMan;
 using Xamarin.Forms;
+using MedManMobile.Views;
 
 namespace MedManMobile.ViewModels
 {
     public class PatientsViewModel : BaseViewModel
     {
         private readonly IPatientService _patientsService;
+        public INavigation Navigation { get; set; }
 
         public ICommand RefreshCommand => new Command(async () => await ResfreshPatients());
         public bool IsRefreshing { get; set; }
@@ -27,8 +29,15 @@ namespace MedManMobile.ViewModels
 
         private async Task Initialise()
         {
-            if (!App.IsLoggedIn)
+            if (!App.Constants.SecretsInitialised)
+            {
+                await Navigation.PushModalAsync(new ConfigPage());
                 return;
+            }
+            else if (!App.IsLoggedIn)
+            {
+                return;
+            }
 
             IsBusy = true;
             
