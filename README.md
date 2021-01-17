@@ -1,2 +1,2 @@
-# Automagic Multi-Tenancy Mobile App Config
+# Automagic Tenancy Mobile App Config
 Automagically configure multi-tenanted mobile apps
