@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SSW.Med_Man.MVC.Data;
-using SSW.Med_Man.MVC.Models;
+using MedMan.API.DTOs;
 
-namespace SSW.Med_Man.MVC.Controllers
+namespace MedMan.API.Controllers
 {
-    public class AdministrationsController : Controller
+    [Authorize(Roles="Nurse,Doctor")]
+    public class AdministrationsController : ApiControllerBase
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,144 +18,163 @@ namespace SSW.Med_Man.MVC.Controllers
             _context = context;
         }
 
-        // GET: Administrations
-        public async Task<IActionResult> Index()
+        // GET: api/Administrations
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<AdministrationDto>>> GetAdministrations()
         {
-            var applicationDbContext = _context.Administrations.Include(a => a.medication).Include(a => a.patient);
-            return View(await applicationDbContext.ToListAsync());
-        }
+            List<AdministrationDto> administrations = new List<AdministrationDto>();
 
-        // GET: Administrations/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+            var dbMeds = await _context.Administrations
+                .Include(a => a.patient)
+                .Include(a => a.medication)
+                .ToListAsync();
+
+            foreach(var med in dbMeds)
             {
-                return NotFound();
+                administrations.Add(new AdministrationDto
+                {
+                    Medication = new MedicationDto
+                    {
+                        Id = med.medicationId,
+                        Name = med.medication.name
+                    },
+                    Patient = new PatientDto
+                    {
+                        Id = med.patientId,
+                        GivenName = med.patient.firstName,
+                        FamilyName = med.patient.familyName
+                    },
+                    Dose = med.dose,
+                    TimeGiven = med.timeGiven
+                });
             }
 
+            return administrations;
+        }
+
+        // GET: api/Administrations/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AdministrationDto>> GetAdministrations(int id)
+        {
             var administrations = await _context.Administrations
-                .Include(a => a.medication)
                 .Include(a => a.patient)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(a => a.medication)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
             if (administrations == null)
             {
                 return NotFound();
             }
 
-            return View(administrations);
-        }
-
-        // GET: Administrations/Create
-        public IActionResult Create()
-        {
-            ViewData["medicationId"] = new SelectList(_context.Medications, "Id", "name");
-            ViewData["patientId"] = new SelectList(_context.Patients, "Id", "FullName");
-            ViewData["timeGiven"] = DateTime.Now;
-            return View();
-        }
-
-        // POST: Administrations/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("patientId,medicationId,dose,timeGiven,Id")] Administrations administrations)
-        {
-            if (ModelState.IsValid)
+            var admin = new AdministrationDto
             {
-                _context.Add(administrations);
+                Medication = new MedicationDto
+                {
+                    Id = administrations.medicationId,
+                    Name = administrations.medication.name
+                },
+                Patient = new PatientDto
+                {
+                    Id = administrations.patientId,
+                    GivenName = administrations.patient.firstName,
+                    FamilyName = administrations.patient.familyName
+                },
+                Dose = administrations.dose,
+                TimeGiven = administrations.timeGiven
+            };
+
+            return admin;
+        }
+
+        // PUT: api/Administrations/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAdministrations(int id, AdministrationDto administration)
+        {
+            if (id != administration.Id)
+            {
+                return BadRequest();
+            }
+
+            var administrations = await _context.Administrations.FirstOrDefaultAsync(a => a.Id == id);
+
+            administrations.medicationId = administration.Medication.Id;
+            administrations.patientId = administration.Patient.Id;
+            administrations.dose = administration.Dose;
+            administrations.timeGiven = administration.TimeGiven;
+
+            try
+            {
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["medicationId"] = new SelectList(_context.Medications, "Id", "name", administrations.medicationId);
-            ViewData["patientId"] = new SelectList(_context.Patients, "Id", "FullName", administrations.patientId);
-            return View(administrations);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AdministrationsExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // GET: Administrations/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var administrations = await _context.Administrations.FindAsync(id);
-            if (administrations == null)
-            {
-                return NotFound();
-            }
-            ViewData["medicationId"] = new SelectList(_context.Medications, "Id", "name", administrations.medicationId);
-            ViewData["patientId"] = new SelectList(_context.Patients, "Id", "FullName", administrations.patientId);
-            return View(administrations);
-        }
-
-        // POST: Administrations/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: api/Administrations
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("patientId,medicationId,dose,timeGiven,Id")] Administrations administrations)
+        public async Task<ActionResult<AdministrationDto>> PostAdministrations(AdministrationDto administration)
         {
-            if (id != administrations.Id)
+            var admin = new Administrations
             {
-                return NotFound();
-            }
+                dose = administration.Dose,
+                medicationId = administration.Medication.Id,
+                patientId = administration.Patient.Id,
+                timeGiven = administration.TimeGiven
+            };
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(administrations);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AdministrationsExists(administrations.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["medicationId"] = new SelectList(_context.Medications, "Id", "name", administrations.medicationId);
-            ViewData["patientId"] = new SelectList(_context.Patients, "Id", "FullName", administrations.patientId);
-            return View(administrations);
+            _context.Administrations.Add(admin);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetAdministrations", new { id = admin.Id }, administration);
         }
 
-        // GET: Administrations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // DELETE: api/Administrations/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<AdministrationDto>> DeleteAdministrations(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var administrations = await _context.Administrations
-                .Include(a => a.medication)
-                .Include(a => a.patient)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var administrations = await _context.Administrations.FindAsync(id);
             if (administrations == null)
             {
                 return NotFound();
             }
 
-            return View(administrations);
-        }
+            var admin = new AdministrationDto
+            {
+                Id = id,
+                Medication = new MedicationDto
+                {
+                    Name = administrations.medication.name,
+                    Id = administrations.medicationId
+                },
+                Dose = administrations.dose,
+                Patient = new PatientDto
+                {
+                    GivenName = administrations.patient.firstName,
+                    FamilyName = administrations.patient.familyName,
+                    Id = administrations.patientId
+                },
+                TimeGiven = administrations.timeGiven
+            };
 
-        // POST: Administrations/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var administrations = await _context.Administrations.FindAsync(id);
             _context.Administrations.Remove(administrations);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return admin;
         }
 
         private bool AdministrationsExists(int id)

@@ -1,153 +1,183 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.Rendering;
-//using Microsoft.EntityFrameworkCore;
-//using SSW.Med_Man.MVC.Data;
-//using SSW.Med_Man.MVC.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MedMan.API.DTOs;
 
-//namespace SSW.Med_Man.MVC.Controllers
-//{
-//    public class PatientsController : Controller
-//    {
-//        private readonly ApplicationDbContext _context;
+namespace MedMan.API.Controllers
+{
+    public class PatientsController : ApiControllerBase
+    {
+        private readonly ApplicationDbContext _context;
 
-//        public PatientsController(ApplicationDbContext context)
-//        {
-//            _context = context;
-//        }
+        public PatientsController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-//        // GET: Patients
-//        public async Task<IActionResult> Index()
-//        {
-//            return View(await _context.Patients.ToListAsync());
-//        }
+        // GET: api/Patients
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PatientDto>>> GetPatients()
+        {
+            var patList = await _context.Patients.ToListAsync();
 
-//        // GET: Patients/Details/5
-//        public async Task<IActionResult> Details(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return NotFound();
-//            }
+            var dtoList = new List<PatientDto>();
 
-//            var patient = await _context.Patients
-//                .FirstOrDefaultAsync(m => m.Id == id);
-//            if (patient == null)
-//            {
-//                return NotFound();
-//            }
+            foreach(var pat in patList)
+            {
+                dtoList.Add(new PatientDto
+                {
+                    Id = pat.Id,
+                    FamilyName = pat.familyName,
+                    GivenName = pat.firstName,
+                    DOB = pat.DOB
+                });
+            }
 
-//            return View(patient);
-//        }
+            return dtoList;
+        }
 
-//        // GET: Patients/Create
-//        public IActionResult Create()
-//        {
-//            return View();
-//        }
+        // GET: api/Patients/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PatientDto>> GetPatient(int id)
+        {
+            var patient = await _context.Patients.FindAsync(id);
 
-//        // POST: Patients/Create
-//        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-//        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> Create([Bind("firstName,familyName,DOB,Id")] Patient patient)
-//        {
-//            if (ModelState.IsValid)
-//            {
-//                _context.Add(patient);
-//                await _context.SaveChangesAsync();
-//                return RedirectToAction(nameof(Index));
-//            }
-//            return View(patient);
-//        }
+            if (patient == null)
+            {
+                return NotFound();
+            }
 
-//        // GET: Patients/Edit/5
-//        public async Task<IActionResult> Edit(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return NotFound();
-//            }
+            var admins = new List<AdministrationDto>();
+            var scripts = new List<PrescriptionDto>();
 
-//            var patient = await _context.Patients.FindAsync(id);
-//            if (patient == null)
-//            {
-//                return NotFound();
-//            }
-//            return View(patient);
-//        }
+            foreach(var admin in patient.administrations)
+            {
+                admins.Add(new AdministrationDto
+                {
+                    Id = admin.Id,
+                    Dose = admin.dose,
+                    Medication = new MedicationDto
+                    {
+                        Id = admin.medicationId,
+                        Name = admin.medication.name
+                    },
+                    TimeGiven = admin.timeGiven
+                });
+            }
 
-//        // POST: Patients/Edit/5
-//        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-//        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> Edit(int id, [Bind("firstName,familyName,DOB,Id")] Patient patient)
-//        {
-//            if (id != patient.Id)
-//            {
-//                return NotFound();
-//            }
+            foreach(var script in patient.prescriptions)
+            {
+                scripts.Add(new PrescriptionDto
+                {
+                    Id = script.Id,
+                    Dose = script.dose,
+                    Medication = new MedicationDto
+                    {
+                        Id = script.medicationId,
+                        Name = script.medication.name
+                    }
+                });
+            }
 
-//            if (ModelState.IsValid)
-//            {
-//                try
-//                {
-//                    _context.Update(patient);
-//                    await _context.SaveChangesAsync();
-//                }
-//                catch (DbUpdateConcurrencyException)
-//                {
-//                    if (!PatientExists(patient.Id))
-//                    {
-//                        return NotFound();
-//                    }
-//                    else
-//                    {
-//                        throw;
-//                    }
-//                }
-//                return RedirectToAction(nameof(Index));
-//            }
-//            return View(patient);
-//        }
+            var dto = new PatientDto
+            {
+                Id = patient.Id,
+                GivenName = patient.firstName,
+                FamilyName = patient.familyName,
+                DOB = patient.DOB,
+                Administrations = admins,
+                Prescriptions = scripts
+            };
 
-//        // GET: Patients/Delete/5
-//        public async Task<IActionResult> Delete(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return NotFound();
-//            }
+            return dto;
+        }
 
-//            var patient = await _context.Patients
-//                .FirstOrDefaultAsync(m => m.Id == id);
-//            if (patient == null)
-//            {
-//                return NotFound();
-//            }
+        // PUT: api/Patients/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutPatient(int id, PatientDto patient)
+        {
+            if (id != patient.Id)
+            {
+                return BadRequest();
+            }
 
-//            return View(patient);
-//        }
+            var dbPat = await _context.Patients.FirstOrDefaultAsync(p => p.Id == id);
 
-//        // POST: Patients/Delete/5
-//        [HttpPost, ActionName("Delete")]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> DeleteConfirmed(int id)
-//        {
-//            var patient = await _context.Patients.FindAsync(id);
-//            _context.Patients.Remove(patient);
-//            await _context.SaveChangesAsync();
-//            return RedirectToAction(nameof(Index));
-//        }
+            dbPat.firstName = patient.GivenName;
+            dbPat.familyName = patient.FamilyName;
+            dbPat.DOB = patient.DOB;
 
-//        private bool PatientExists(int id)
-//        {
-//            return _context.Patients.Any(e => e.Id == id);
-//        }
-//    }
-//}
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PatientExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/Patients
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [HttpPost]
+        public async Task<ActionResult<PatientDto>> PostPatient(PatientDto patient)
+        {
+            var dbPatient = new Patient
+            {
+                firstName = patient.GivenName,
+                familyName = patient.FamilyName,
+                DOB = patient.DOB
+            };
+
+            _context.Patients.Add(dbPatient);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetPatient", new { id = dbPatient.Id }, patient);
+        }
+
+        // DELETE: api/Patients/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<PatientDto>> DeletePatient(int id)
+        {
+            var patient = await _context.Patients.FindAsync(id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
+
+            var pat = new PatientDto
+            {
+                Id = id,
+                FamilyName = patient.familyName,
+                GivenName = patient.firstName,
+                DOB = patient.DOB
+            };
+
+            _context.Patients.Remove(patient);
+            await _context.SaveChangesAsync();
+
+            return pat;
+        }
+
+        private bool PatientExists(int id)
+        {
+            return _context.Patients.Any(e => e.Id == id);
+        }
+    }
+}

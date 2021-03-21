@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SSW.Med_Man.MVC.Data;
-using SSW.Med_Man.MVC.Models;
 
-namespace SSW.Med_Man.MVC.Controllers
+namespace MedMan.API.Controllers
 {
-    public class PrescriptionsController : Controller
+    public class PrescriptionsController : ApiControllerBase
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,143 +16,165 @@ namespace SSW.Med_Man.MVC.Controllers
             _context = context;
         }
 
-        // GET: Prescriptions
-        public async Task<IActionResult> Index()
+        // GET: api/Prescriptions
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PrescriptionDto>>> GetPrescriptions()
         {
-            var applicationDbContext = _context.Prescriptions.Include(p => p.medication).Include(p => p.patient);
-            return View(await applicationDbContext.ToListAsync());
-        }
+            List<PrescriptionDto> prescriptions = new List<PrescriptionDto>();
 
-        // GET: Prescriptions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var prescription = await _context.Prescriptions
-                .Include(p => p.medication)
+            var presList =  await _context.Prescriptions
                 .Include(p => p.patient)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (prescription == null)
+                .Include(p => p.medication)
+                .ToListAsync();
+
+            foreach (var pres in presList)
+            {
+                prescriptions.Add(new PrescriptionDto
+                {
+                    Dose = pres.dose,
+                    Id = pres.Id,
+                    Medication = new MedicationDto
+                    {
+                        Id = pres.medicationId,
+                        Name = pres.medication.name
+                    },
+                    Patient = new PatientDto
+                    {
+                        FamilyName = pres.patient.familyName,
+                        GivenName = pres.patient.firstName,
+                        Id = pres.patientId
+                    }
+
+                });
+            }
+
+            return prescriptions;
+        }
+
+        // GET: api/Prescriptions/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PrescriptionDto>> GetPrescription(int id)
+        {
+            var pres = await _context.Prescriptions
+                .Include(p => p.patient.FullName)
+                .Include(p => p.medication.name)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (pres == null)
             {
                 return NotFound();
             }
 
-            return View(prescription);
-        }
-
-        // GET: Prescriptions/Create
-        public IActionResult Create()
-        {
-            ViewData["medication"] = new SelectList(_context.Medications, "Id", "name");
-            ViewData["patient"] = new SelectList(_context.Patients, "Id", "FullName");
-            return View();
-        }
-
-        // POST: Prescriptions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("patientId,medicationId,dose,Id")] Prescription prescription)
-        {
-            if (ModelState.IsValid)
+            var prescription = new PrescriptionDto
             {
-                _context.Add(prescription);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["medication"] = new SelectList(_context.Medications, "Id", "name", prescription.medicationId);
-            ViewData["patient"] = new SelectList(_context.Patients, "Id", "FullName", prescription.patientId);
-            return View(prescription);
+                Dose = pres.dose,
+                Id = pres.Id,
+                Medication = new MedicationDto
+                {
+                    Id = pres.medicationId,
+                    Name = pres.medication.name
+                },
+                Patient = new PatientDto
+                {
+                    FamilyName = pres.patient.familyName,
+                    GivenName = pres.patient.firstName,
+                    Id = pres.patientId
+                }
+
+            };
+
+            return prescription;
         }
 
-        // GET: Prescriptions/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var prescription = await _context.Prescriptions.FindAsync(id);
-            if (prescription == null)
-            {
-                return NotFound();
-            }
-            ViewData["medicationId"] = new SelectList(_context.Medications, "Id", "name", prescription.medicationId);
-            ViewData["patientId"] = new SelectList(_context.Patients, "Id", "FullName", prescription.patientId);
-            return View(prescription);
-        }
-
-        // POST: Prescriptions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("patientId,medicationId,dose,Id")] Prescription prescription)
+        // PUT: api/Prescriptions/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> PutPrescription(int id, PrescriptionDto prescription)
         {
             if (id != prescription.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            if (ModelState.IsValid)
+            var pres = await  _context.Prescriptions.FirstOrDefaultAsync(p => p.Id == id);
+
+            pres.medicationId = prescription.Medication.Id;
+            pres.patientId = prescription.Patient.Id;
+            pres.dose = prescription.Dose;
+
+            try
             {
-                try
-                {
-                    _context.Update(prescription);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PrescriptionExists(prescription.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
             }
-            ViewData["medicationId"] = new SelectList(_context.Medications, "Id", "name", prescription.medicationId);
-            ViewData["patientId"] = new SelectList(_context.Patients, "Id", "FullName", prescription.patientId);
-            return View(prescription);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PrescriptionExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // GET: Prescriptions/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: api/Prescriptions
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPost]
+        [Authorize(Roles = "Doctor")]
+        public async Task<ActionResult<PrescriptionDto>> PostPrescription(PrescriptionDto prescription)
         {
-            if (id == null)
+            var dbPres = new Prescription
             {
-                return NotFound();
-            }
+                dose = prescription.Dose,
+                patientId = prescription.Patient.Id,
+                medicationId = prescription.Medication.Id
+            };
 
-            var prescription = await _context.Prescriptions
-                .Include(p => p.medication)
-                .Include(p => p.patient)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            _context.Prescriptions.Add(dbPres);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetPrescription", new { id = dbPres.Id }, prescription);
+        }
+
+        // DELETE: api/Prescriptions/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<PrescriptionDto>> DeletePrescription(int id)
+        {
+            var prescription = await _context.Prescriptions.FindAsync(id);
             if (prescription == null)
             {
                 return NotFound();
             }
 
-            return View(prescription);
-        }
+            var dto = new PrescriptionDto
+            {
+                Dose = prescription.dose,
+                Medication = new MedicationDto
+                {
+                    Id = prescription.medicationId,
+                    Name = prescription.medication.name
+                },
+                Id = id,
+                Patient = new PatientDto
+                {
+                    FamilyName = prescription.patient.familyName,
+                    GivenName = prescription.patient.firstName,
+                    Id = prescription.patientId,
+                }
+            };
 
-        // POST: Prescriptions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var prescription = await _context.Prescriptions.FindAsync(id);
             _context.Prescriptions.Remove(prescription);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return dto;
         }
 
         private bool PrescriptionExists(int id)

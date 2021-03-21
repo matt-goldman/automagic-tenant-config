@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SSW.Med_Man.MVC": {
+    "MedMan.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localdev:44348;http://localdev:5000",
