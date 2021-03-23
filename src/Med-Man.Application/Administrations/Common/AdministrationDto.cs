@@ -1,13 +1,12 @@
-﻿using System;
+﻿using MedMan.Application.Common.Mappings;
+using MedMan.Application.Prescriptions.Common;
+using MedMan.Domain.Entities;
+using System;
 
 namespace MedMan.Application.Administrations.Common
 {
-    public class AdministrationDto
+    public class AdministrationDto : PrescriptionDto, IMapFrom<Administration>
     {
-        public int Id { get; set; }
-        public int PatientId { get; set; }
-        public int MedicationId { get; set; }
-        public int Dose { get; set; }
         public DateTime TimeGiven { get; set; }
     }
 }

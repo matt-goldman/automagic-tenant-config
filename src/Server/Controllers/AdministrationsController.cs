@@ -4,86 +4,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MedMan.API.DTOs;
+using MedMan.Application.Administrations.Common;
+using MedMan.Application.Administrations.Queries.GetAdministrations;
+using MedMan.Application.Administrations.Queries;
 
 namespace MedMan.API.Controllers
 {
     [Authorize(Roles="Nurse,Doctor")]
     public class AdministrationsController : ApiControllerBase
     {
-        private readonly ApplicationDbContext _context;
-
-        public AdministrationsController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         // GET: api/Administrations
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AdministrationDto>>> GetAdministrations()
         {
-            List<AdministrationDto> administrations = new List<AdministrationDto>();
-
-            var dbMeds = await _context.Administrations
-                .Include(a => a.patient)
-                .Include(a => a.medication)
-                .ToListAsync();
-
-            foreach(var med in dbMeds)
-            {
-                administrations.Add(new AdministrationDto
-                {
-                    Medication = new MedicationDto
-                    {
-                        Id = med.medicationId,
-                        Name = med.medication.name
-                    },
-                    Patient = new PatientDto
-                    {
-                        Id = med.patientId,
-                        GivenName = med.patient.firstName,
-                        FamilyName = med.patient.familyName
-                    },
-                    Dose = med.dose,
-                    TimeGiven = med.timeGiven
-                });
-            }
-
-            return administrations;
+            return await Mediator.Send(new GetAdministrationsQuery());
         }
 
         // GET: api/Administrations/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AdministrationDto>> GetAdministrations(int id)
         {
-            var administrations = await _context.Administrations
-                .Include(a => a.patient)
-                .Include(a => a.medication)
-                .FirstOrDefaultAsync(a => a.Id == id);
-
-            if (administrations == null)
-            {
-                return NotFound();
-            }
-
-            var admin = new AdministrationDto
-            {
-                Medication = new MedicationDto
-                {
-                    Id = administrations.medicationId,
-                    Name = administrations.medication.name
-                },
-                Patient = new PatientDto
-                {
-                    Id = administrations.patientId,
-                    GivenName = administrations.patient.firstName,
-                    FamilyName = administrations.patient.familyName
-                },
-                Dose = administrations.dose,
-                TimeGiven = administrations.timeGiven
-            };
-
-            return admin;
+            return await Mediator.Send(new GetAdministrationQuery { Id = id });
         }
 
         // PUT: api/Administrations/5
