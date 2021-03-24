@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MedMan.Application.Administrations.Queries.GetAdministrations
+namespace MedMan.Application.Administrations.Queries
 {
     public class GetAdministrationsQuery : IRequest<List<AdministrationDto>>
     {
