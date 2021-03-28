@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedManMobile.Android", "Med-Man-Mobile\Med-Man-Mobile.Android\MedManMobile.Android.csproj", "{97AAD4D4-D1DC-4C04-89FB-B24E19DBE21E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedMan.Mobile.Android", "MedMan.Mobile\MedMan.Mobile.Android\MedMan.Mobile.Android.csproj", "{97AAD4D4-D1DC-4C04-89FB-B24E19DBE21E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedManMobile.iOS", "Med-Man-Mobile\Med-Man-Mobile.iOS\MedManMobile.iOS.csproj", "{2CA1B894-B89E-403A-A730-90729512E0A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedMan.Mobile.iOS", "MedMan.Mobile\MedMan.Mobile.iOS\MedMan.Mobile.iOS.csproj", "{2CA1B894-B89E-403A-A730-90729512E0A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedManMobile", "Med-Man-Mobile\Med-Man-Mobile\MedManMobile.csproj", "{43D16C3B-C70D-4657-8160-938F1543AE54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedMan.Mobile", "MedMan.Mobile\MedMan.Mobile\MedMan.Mobile.csproj", "{43D16C3B-C70D-4657-8160-938F1543AE54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedMan.Application", "Med-Man.Application\MedMan.Application.csproj", "{F11B5845-8373-4521-8A6F-6DD36B476AA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedMan.Application", "MedMan.Application\MedMan.Application.csproj", "{F11B5845-8373-4521-8A6F-6DD36B476AA3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedMan.Domain", "Med-Man.Domain\MedMan.Domain.csproj", "{4B7C86B1-9730-45E3-B1D9-222B898E9C63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedMan.Domain", "MedMan.Domain\MedMan.Domain.csproj", "{4B7C86B1-9730-45E3-B1D9-222B898E9C63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedMan.Infrastructure", "Med-Man.Infrastructure\MedMan.Infrastructure.csproj", "{AA8FDC56-F67B-46E9-A251-4A4B1DDFCDC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedMan.Infrastructure", "MedMan.Infrastructure\MedMan.Infrastructure.csproj", "{AA8FDC56-F67B-46E9-A251-4A4B1DDFCDC0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedMan.API", "Server\MedMan.API.csproj", "{EF302DB7-E386-4E08-90A8-53B64E8C9808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedMan.API", "MedMan.API\MedMan.API.csproj", "{EF302DB7-E386-4E08-90A8-53B64E8C9808}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Azure Function - Roles", "Azure Function\Azure Function - Roles.csproj", "{CBDF7EFA-86AA-441F-9D62-D0EA55FA98D8}"
 EndProject

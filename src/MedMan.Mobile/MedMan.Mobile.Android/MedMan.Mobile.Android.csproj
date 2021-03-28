@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{97AAD4D4-D1DC-4C04-89FB-B24E19DBE21E}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{6968b3a4-1835-46a3-ac5c-1ae33b475983}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MedMan.Mobile.Droid</RootNamespace>
+    <AssemblyName>MedMan.Mobile.Android</AssemblyName>
+    <Deterministic>True</Deterministic>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>6.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Client">
+      <Version>4.24.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.CommunityToolkit">
+      <Version>1.0.0-pre6</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1829-pre6" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1-preview1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\MaterialIcons.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Tabbar.xml" />
+    <AndroidResource Include="Resources\layout\Toolbar.xml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable\xamarin_logo.png" />
+    <AndroidResource Include="Resources\drawable\icon_about.png" />
+    <AndroidResource Include="Resources\drawable\icon_feed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MedMan.Mobile\MedMan.Mobile.csproj">
+      <Project>{43D16C3B-C70D-4657-8160-938F1543AE54}</Project>
+      <Name>MedMan.Mobile</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Admins.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\Admins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Meds.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\Meds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Scripts.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\Scripts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Patients.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\Patients.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\medmanlogo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\medmanlogo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\medmanlogo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\medmanlogo.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\medmanlogo.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\medmanlogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Logout.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Logout.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Logout.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Logout.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Logout.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\Logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\addpatient.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\addpatient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\viewpatients.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\viewpatients.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties TriggeredFromHotReload="False" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

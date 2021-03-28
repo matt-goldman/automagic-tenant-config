@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ssw-med-man": {
+    "ssw-MedMan": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ssw-med-man",
+            "outputPath": "dist/ssw-MedMan",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -82,18 +82,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ssw-med-man:build"
+            "browserTarget": "ssw-MedMan:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ssw-med-man:build:production"
+              "browserTarget": "ssw-MedMan:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ssw-med-man:build"
+            "browserTarget": "ssw-MedMan:build"
           }
         },
         "test": {
@@ -131,16 +131,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ssw-med-man:serve"
+            "devServerTarget": "ssw-MedMan:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ssw-med-man:serve:production"
+              "devServerTarget": "ssw-MedMan:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ssw-med-man"
+  "defaultProject": "ssw-MedMan"
 }

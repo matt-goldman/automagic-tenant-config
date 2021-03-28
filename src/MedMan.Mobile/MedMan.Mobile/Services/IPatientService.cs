@@ -1,0 +1,17 @@
+﻿using SSW.MedMan;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace MedMan.Mobile.Services
+{
+    public interface IPatientService
+    {
+        Task<List<PatientDTO>> GetAllPAtients();
+
+        Task<PatientDTO> GetPatient(int id);
+
+        Task<bool> UpdatePatient(PatientDTO patient);
+
+        Task<int> AddPatient(PatientDTO patient);
+    }
+}

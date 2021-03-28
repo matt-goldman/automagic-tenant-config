@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Med-Man.Application\MedMan.Application.csproj" />
-    <ProjectReference Include="..\Med-Man.Infrastructure\MedMan.Infrastructure.csproj" />
+    <ProjectReference Include="..\MedMan.Application\MedMan.Application.csproj" />
+    <ProjectReference Include="..\MedMan.Infrastructure\MedMan.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
