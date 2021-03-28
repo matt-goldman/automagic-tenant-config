@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using MedMan.Application.Administrations.Common;
+using MedMan.Application.Administrations.Queries.Common;
 using MedMan.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MedMan.Application.Administrations.Queries
+namespace MedMan.Application.Administrations.Queries.GetAdministrations
 {
     public class GetAdministrationsQuery : IRequest<List<AdministrationDto>>
     {

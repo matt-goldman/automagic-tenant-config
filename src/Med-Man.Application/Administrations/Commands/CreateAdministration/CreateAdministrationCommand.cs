@@ -1,15 +1,18 @@
 ﻿using MediatR;
-using MedMan.Application.Administrations.Common;
 using MedMan.Application.Interfaces;
 using MedMan.Domain.Entities;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MedMan.Application.Administrations.Commands
+namespace MedMan.Application.Administrations.Commands.CreateAdministration
 {
     public class CreateAdministrationCommand : IRequest<int>
     {
-        public AdministrationDto Administration { get; set; }
+        public int MedicationId { get; set; }
+        public int PatientId { get; set; }
+        public int Dose { get; set; }
+        public DateTime TimeGiven { get; set; }
     }
 
     public class CreateAdministrationCommandHandler : IRequestHandler<CreateAdministrationCommand, int>
@@ -25,10 +28,10 @@ namespace MedMan.Application.Administrations.Commands
         {
             var entity = new Administration
             {
-                dose = request.Administration.Dose,
-                medicationId = request.Administration.MedicationId,
-                patientId = request.Administration.PatientId,
-                timeGiven = request.Administration.TimeGiven
+                dose = request.Dose,
+                medicationId = request.MedicationId,
+                patientId = request.PatientId,
+                timeGiven = request.TimeGiven
             };
 
             await _context.Administrations.AddAsync(entity, cancellationToken);

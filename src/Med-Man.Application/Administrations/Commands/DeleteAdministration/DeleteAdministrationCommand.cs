@@ -5,7 +5,7 @@ using MedMan.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MedMan.Application.Administrations.Commands
+namespace MedMan.Application.Administrations.Commands.DeleteAdministration
 {
     public class DeleteAdministrationCommand : IRequest
     {

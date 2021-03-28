@@ -1,16 +1,21 @@
 ﻿using MediatR;
-using MedMan.Application.Administrations.Common;
 using MedMan.Application.Common.Exceptions;
 using MedMan.Application.Interfaces;
 using MedMan.Domain.Entities;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MedMan.Application.Administrations.Commands
+namespace MedMan.Application.Administrations.Commands.UpdateAdministration
 {
     public class UpdateAdministrationCommand : IRequest
     {
-        public AdministrationDto Administration { get; set; }
+        public int MedicationId { get; set; }
+        public int PatientId { get; set; }
+        public int Dose { get; set; }
+        public DateTime TimeGiven { get; set; }
+
+        public int AdministrationId { get; set; }
     }
 
     public class UpdateAdministrationCommandHandler : IRequestHandler<UpdateAdministrationCommand>
@@ -24,17 +29,17 @@ namespace MedMan.Application.Administrations.Commands
 
         public async Task<Unit> Handle(UpdateAdministrationCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Administrations.FindAsync(request.Administration.Id);
+            var entity = await _context.Administrations.FindAsync(request.AdministrationId);
 
             if(entity == null)
             {
-                throw new NotFoundException(nameof(Administration), request.Administration.Id);
+                throw new NotFoundException(nameof(Administration), request.AdministrationId);
             }
 
-            entity.medicationId = request.Administration.MedicationId;
-            entity.patientId = request.Administration.PatientId;
-            entity.dose = request.Administration.Dose;
-            entity.timeGiven = request.Administration.TimeGiven;
+            entity.medicationId = request.MedicationId;
+            entity.patientId = request.PatientId;
+            entity.dose = request.Dose;
+            entity.timeGiven = request.TimeGiven;
 
             await _context.SaveChangesAsync(cancellationToken);
 

@@ -1,137 +1,49 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MedMan.API.DTOs;
+using MedMan.Application.Medications.Commands.CreateMedication;
+using MedMan.Application.Medications.Commands.DeleteMedication;
+using Microsoft.AspNetCore.Authorization;
+using MedMan.Application.Medications.Queries.Common;
+using MedMan.Application.Medications.Queries.GetMedications;
+using MedMan.Application.Medications.Queries.GetMedication;
 
 namespace MedMan.API.Controllers
 {
     public class MedicationsController : ApiControllerBase
     {
-        private readonly ApplicationDbContext _context;
-
-        public MedicationsController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         // GET: api/Medications
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MedicationDto>>> GetMedications()
         {
-            var meds =  await _context.Medications.ToListAsync();
-
-            var medList = new List<MedicationDto>();
-
-            foreach(var med in meds)
-            {
-                medList.Add(new MedicationDto
-                {
-                    Id = med.Id,
-                    Name = med.name
-                });
-            }
-
-            return medList;
+            return await Mediator.Send(new GetMedicationsQuery());
         }
 
         // GET: api/Medications/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MedicationDto>> GetMedication(int id)
         {
-            var medication = await _context.Medications.FindAsync(id);
-
-            var medDTO = new MedicationDto
-            {
-                Id = medication.Id,
-                Name = medication.name
-            };
-
-            if (medication == null)
-            {
-                return NotFound();
-            }
-
-            return medDTO;
-        }
-
-        // PUT: api/Medications/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMedication(int id, MedicationDto medication)
-        {
-            if (id != medication.Id)
-            {
-                return BadRequest();
-            }
-
-            var dbMed = await _context.Medications.FirstOrDefaultAsync(m => m.Id == id);
-
-            dbMed.name = medication.Name;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MedicationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return await Mediator.Send(new GetMedicationQuery { Id = id });
         }
 
         // POST: api/Medications
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<MedicationDto>> PostMedication(MedicationDto medication)
+        [Authorize(Roles="Pharmacist")]
+        public async Task<ActionResult<int>> PostMedication(string Name)
         {
-            var med = new Medication
-            {
-                name = medication.Name
-            };
-
-            _context.Medications.Add(med);
-            await _context.SaveChangesAsync();
-            medication.Id = med.Id;
-
-            return CreatedAtAction("GetMedication", new { id = med.Id }, medication);
+            return await Mediator.Send(new CreateMedicationCommand { Name = Name });
         }
 
         // DELETE: api/Medications/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MedicationDto>> DeleteMedication(int id)
+        [Authorize(Roles = "Pharmacist")]
+        public async Task<ActionResult> DeleteMedication(int id)
         {
-            var medication = await _context.Medications.FindAsync(id);
-            if (medication == null)
-            {
-                return NotFound();
-            }
-            var dto = new MedicationDto
-            {
-                Id = id,
-                Name = medication.name
-            };
+            await Mediator.Send(new DeleteMedicationCommand { Id = id });
 
-            _context.Medications.Remove(medication);
-            await _context.SaveChangesAsync();
-
-            return dto;
-        }
-
-        private bool MedicationExists(int id)
-        {
-            return _context.Medications.Any(e => e.Id == id);
+            return NoContent();
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MedMan.Application.Administrations.Commands.CreateAdministration;
+using MedMan.Application.Administrations.Commands.DeleteAdministration;
+using MedMan.Application.Administrations.Commands.UpdateAdministration;
+using MedMan.Application.Administrations.Queries.Common;
+using MedMan.Application.Administrations.Queries.GetAdministration;
+using MedMan.Application.Administrations.Queries.GetAdministrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MedMan.Application.Administrations.Common;
-using MedMan.Application.Administrations.Queries;
-using MedMan.Application.Administrations.Commands;
 
 namespace MedMan.API.Controllers
 {
@@ -29,14 +32,14 @@ namespace MedMan.API.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdministrations(int id, AdministrationDto administration)
+        public async Task<IActionResult> PutAdministrations(int id, UpdateAdministrationCommand command)
         {
-            if (id != administration.Id)
+            if (id != command.AdministrationId)
             {
                 return BadRequest();
             }
 
-            await Mediator.Send(new UpdateAdministrationCommand { Administration = administration });
+            await Mediator.Send(command);
 
             return NoContent();
         }
@@ -45,9 +48,9 @@ namespace MedMan.API.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<int>> PostAdministrations(AdministrationDto administration)
+        public async Task<ActionResult<int>> PostAdministrations(CreateAdministrationCommand command)
         {
-            return await Mediator.Send(new CreateAdministrationCommand { Administration = administration });
+            return await Mediator.Send(command);
         }
 
         // DELETE: api/Administrations/5
